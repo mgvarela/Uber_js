@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<style>
+h1 {
+	color: blue;
+	text-align: center;
+	text-decoration: underline;
+}
+label {
+	display: inline-block;
+	width: 70px;
+}
+</style>
+</head>
+<body>
+	<h1>INGRESO DE VIAJES</h1>
+	<label>Origen:</label>
+	<input id="origen" type="text">
+	<br>
+	<br>
+	<label>Destino:</label>
+	<input id="destino" type="text">
+	<br>
+	<br>
+	<label>Km:</label>
+	<input id="km" type="text">
+	<br>
+	<br>
+	<label>Tiempo:</label>
+	<input id="tiempo" type="text">
+	<br>
+	<br>
+	<button>OK</button>
+	<p id="precio_viaje"></p>
+	<p id="viajes"></p>
+	<p id="cantidad_viajes"></p>
+
+	<script>
+		let btn_click = document.querySelector('button');
+		const tarifa_base = 20;
+		let valor_km = 6.50;
+		const valor_minuto = 2.40;
+		const valor_porcentaje = 0.035; /* 3,5% */
+		var precio_viajes = []; 
+		
+		btn_click.onclick = function() {
+			
+			let txt_km = document.querySelector('#km').value;
+			let txt_tiempo = document.querySelector('#tiempo').value;
+			if (txt_km<30)
+			{
+			let calculo_auxiliar = tarifa_base + (valor_km * txt_km)+ (valor_minuto * txt_tiempo);
+			let costo_viaje = (valor_porcentaje * calculo_auxiliar)+calculo_auxiliar;
+			
+			document.querySelector('#precio_viaje').innerHTML = "Valor viaje: " + costo_viaje;
+			precio_viajes.push(costo_viaje);
+			document.querySelector('#viajes').innerHTML ="Listado de viajes: " + precio_viajes.toString();
+			document.querySelector('#cantidad_viajes').innerHTML =	"Cantidad de viajes: " + precio_viajes.length;
+			}
+			else{
+				/* Recargo de 5,50 por km */
+				valor_km = 12;
+				
+				let calculo_auxiliar = tarifa_base + (valor_km * txt_km)+ (valor_minuto * txt_tiempo);
+				let costo_viaje = (valor_porcentaje * calculo_auxiliar)+calculo_auxiliar;
+				
+				document.querySelector('#precio_viaje').innerHTML = "Valor viaje: " + costo_viaje;
+				precio_viajes.push(costo_viaje);
+				document.querySelector('#viajes').innerHTML ="Listado de viajes: " + precio_viajes.toString();
+				document.querySelector('#cantidad_viajes').innerHTML =	"Cantidad de viajes: " + precio_viajes.length;
+			}
+			
+		}
+		
+	</script>
+</body>
+</html>
